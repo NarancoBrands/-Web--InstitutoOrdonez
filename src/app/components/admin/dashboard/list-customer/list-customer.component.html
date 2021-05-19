@@ -1,0 +1,69 @@
+<div class="divTotal">
+    <!------------------------------------------------------------------------------------------------------------------------->
+    <!--FILTROS-->
+    <div class="filtros">
+
+    </div>
+
+    <!------------------------------------------------------------------------------------------------------------------------->
+    <!--TABLA-->
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Org_id</th>
+                <th scope="col">pb_id</th>
+                <th scope="col">sexo</th>
+                <th scope="col">nacion</th>
+                <th scope="col">tipo de usuario</th>
+                <th scope="col">fechaCreado</th>
+                <th scope="col">fechaModificado</th>
+                <th scope="col">Attendance_id</th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let cliente of clientes">
+                <th scope="row">{{cliente.user_id}}</th>
+                <td>{{cliente.user_name}}</td>
+                <td>{{cliente.org_id}}</td>
+                <td>{{cliente.pb_id}}</td>
+                <td>{{cliente.sex}}</td>
+                <td>{{cliente.nation}}</td>
+                <td>{{cliente.user_type}}</td>
+                <td>{{cliente.create_time}}</td>
+                <td>{{cliente.update_time}}</td>
+                <td>{{cliente.attendance_id}}</td>
+                <td class="botones">
+                    <div>
+                        <button type="button" class="editar"><i class="fas fa-pen"></i></button>
+                        <button type="button" class="borrar" (click)="abrirModal(cliente.user_id)">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!------------------------------------------------------------------------------------------------------------------------->
+    <!--MODAL-->
+    <ng-template #modalContent let-modal>
+        <!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog-centered modal-dialog" role="document">-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">¿Deseas borrar al usuario?</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button (click)="acceptDelete(idModal)" type="button" class="editar" data-dismiss="modal"><i class="fas fa-check"></i></button>
+                        <button (click)="modal.close()" type="button" class="borrar" data-dismiss="modal"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+            <!--</div>
+        </div>-->
+    </ng-template>
+</div>

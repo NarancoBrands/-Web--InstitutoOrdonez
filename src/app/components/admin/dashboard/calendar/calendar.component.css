@@ -1,0 +1,29 @@
+.divInferior{
+    margin-top: 15px;
+}
+
+.borrado{
+    color: red;
+    font-size: 20px;
+    border-color: transparent;
+    background-color: transparent;
+    border-style: none;
+}
+
+td{
+    text-align: center;
+}
+
+.editado{
+    color: #2AC83A;
+    font-size: 20px;
+    border-color: transparent;
+    background-color: transparent;
+    border-style: none;
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+    #modal-content{
+        size: lg;
+    }
+}
