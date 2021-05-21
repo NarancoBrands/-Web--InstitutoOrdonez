@@ -1,4 +1,4 @@
 export var GLOBAL = {
-    url: 'http://localhost/api_skeleton/index.php',
+    url: 'http://localhost/clinica/index.php',
     header_color: 'blue'
 };

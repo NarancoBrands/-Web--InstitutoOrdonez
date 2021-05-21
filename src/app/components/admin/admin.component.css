@@ -17,7 +17,10 @@
   justify-content: center;
 }
 .logo img{
-max-width: 175px;
+  max-width: 300px;
+  background-color: #02023e;
+  padding: 15px;
+  border-radius: 10px;
 }
 
 .form-signin {

@@ -8,7 +8,6 @@ import * as moment from 'moment';
 import { CalendarService } from "./calendar.service";
 import { FlatpickrDefaultsInterface } from 'angularx-flatpickr/flatpickr-defaults.service';
 
-
 moment.updateLocale('en', {
   week: {
     dow: DAYS_OF_WEEK.MONDAY,

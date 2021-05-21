@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AdminComponent implements OnInit {
 
-  logo = 'assets/logo.png';
+  logo = 'assets/logo-ok.png';
   
   loginForm = new FormGroup
   ({
@@ -24,7 +24,6 @@ export class AdminComponent implements OnInit {
 
   onLogin() {
     const { email, password } = this.loginForm.value;
-    console.log(email, password);
     this.router.navigate(['./dashboard/listCustomer']);
     // try {
     //   const user = this.authSvc.login(email, password);

@@ -19,10 +19,6 @@ export class ListCustomerComponent implements OnInit {
   constructor(private toastr: ToastrService, private _route:ActivatedRoute,private _router:Router, 
   private _ClientesService: ClientesService, private modal: NgbModal) {}
 
-  ngOnInit() {
-    this.getClientes();
-  }
-
   acceptDelete(id){
     this._ClientesService.deleteCliente(id).subscribe(
       response => {
@@ -33,6 +29,7 @@ export class ListCustomerComponent implements OnInit {
       }
     )
     this.toastr.success('El usuario ha sido eliminado','',{ "positionClass" : "toast-bottom-right"});
+    this.modal.dismissAll();
   }
 
   getClientes(){
@@ -51,4 +48,8 @@ export class ListCustomerComponent implements OnInit {
     this.idModal=id;
   }
 
+
+  ngOnInit() {
+    this.getClientes();
+  }
 }

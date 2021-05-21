@@ -21,4 +21,16 @@ export class ClientesService{
     deleteCliente(id){
         return this._http.get(this.url+'/users/delete/'+id);
     }
+
+    addContact(cliente:Cliente):Observable<any>{
+        return this._http.post(this.url+'/users/add', cliente);
+    }
+
+    editContact(id, cliente:Cliente):Observable<any>{
+        return this._http.post(this.url+'/users/update/'+id, cliente);
+    }
+
+    getClientesPorId(id): Observable<any>{
+        return this._http.get(this.url+'/users/search/'+id);
+    }
 }

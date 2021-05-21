@@ -106,15 +106,15 @@ section {
     color: #ffffff;
     font-size: 16px;
     border-radius: 10px;
-    background-color: #ffa737;
+    background-color: #02023E;
     font-weight: 700;
     padding: 8px 30px;
-    border: 2px solid #ffa737;
+    border: 2px solid #02023E;
     line-height: 30px;
 }
 
 .btn-style-two:hover {
-    color: #ffa737;
+    color: #02023E;
     background-color: transparent;
 }
 

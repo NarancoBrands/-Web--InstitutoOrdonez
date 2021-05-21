@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+import {HttpClientModule} from '@angular/common/http';
 
 //componentes
 import { AppComponent } from './app.component';
@@ -11,6 +13,7 @@ import { DashboardComponent } from './components/admin/dashboard/dashboard.compo
 import { MenuLateralComponent } from './components/admin/dashboard/menu-lateral/menu-lateral.component';
 import { MenuTopComponent } from './components/admin/dashboard/menu-top/menu-top.component';
 import { AddCustomerComponent } from './components/admin/dashboard/add-customer/add-customer.component';
+import { EditCustomerComponent } from './components/admin/dashboard/add-customer/edit-customer.component';
 import { ListCustomerComponent } from './components/admin/dashboard/list-customer/list-customer.component';
 import { CalendarComponent } from './components/admin/dashboard/calendar/calendar.component';
 
@@ -23,12 +26,11 @@ import * as moment from 'moment';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 //http
-import {HttpClientModule} from '@angular/common/http';
+
 
 export function momentAdapterFactory() {
   return adapterFactory(moment);
 };
-import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { ToastrModule } from 'ngx-toastr';
     MenuTopComponent,
     AddCustomerComponent,
     ListCustomerComponent,
-    CalendarComponent
+    CalendarComponent,
+    EditCustomerComponent
   ],
   imports: [
     BrowserModule,

@@ -128,5 +128,8 @@
       }
     }
   },
-  "defaultProject": "becore"
+  "defaultProject": "becore",
+  "cli": {
+    "analytics": "e6949eeb-3910-4338-bbb4-62500a4c754f"
+  }
 }
