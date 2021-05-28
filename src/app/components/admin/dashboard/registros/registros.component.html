@@ -1,6 +1,12 @@
-<div class="row">
-    <div class="col-3" *ngFor="let registro of registros">
-        <p><strong>Topic: </strong>{{registro.topic}}</p>
-        <p><strong>Mensaje: </strong>{{registro.mensaje}}</p>
+<div class="general">
+    <div class="row">
+        <div class="col-12 mb-5 p-0">
+            <h2>Registros:</h2>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 fondo mb-5" *ngFor="let registro of registros">
+            <p> <span class="textoSpan pl-2">Número: </span> <span class="textoSpan2">{{registro.id}}</span></p>
+            <p> <span class="textoSpan pl-2">Topic: </span> <span class="textoSpan2">{{registro.topic}}</span></p>
+            <p> <span class="textoSpan pl-2">Mensaje: </span> <span class="textoSpan2">{{registro.mensaje}}</span></p>
+        </div>
     </div>
 </div>
