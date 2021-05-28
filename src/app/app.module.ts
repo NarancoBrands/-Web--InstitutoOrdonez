@@ -24,6 +24,7 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import * as moment from 'moment';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { RegistrosComponent } from './components/admin/dashboard/registros/registros.component';
 
 //http
 
@@ -42,7 +43,8 @@ export function momentAdapterFactory() {
     AddCustomerComponent,
     ListCustomerComponent,
     CalendarComponent,
-    EditCustomerComponent
+    EditCustomerComponent,
+    RegistrosComponent
   ],
   imports: [
     BrowserModule,

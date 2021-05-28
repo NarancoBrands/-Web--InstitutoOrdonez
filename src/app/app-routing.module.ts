@@ -6,15 +6,18 @@ import { CalendarComponent } from './components/admin/dashboard/calendar/calenda
 import { DashboardComponent } from './components/admin/dashboard/dashboard.component';
 import { ListCustomerComponent } from './components/admin/dashboard/list-customer/list-customer.component';
 import { EditCustomerComponent } from './components/admin/dashboard/add-customer/edit-customer.component';
+import { RegistrosComponent } from './components/admin/dashboard/registros/registros.component';
 
 const routes: Routes = [
+  { path: '', component: AdminComponent},
   { path: 'admin', component: AdminComponent},
   { path: 'dashboard', component: DashboardComponent,
     children: [
       {path: 'addCustomer', component: AddCustomerComponent},
       {path: 'listCustomer', component: ListCustomerComponent},
       {path: 'calendar', component: CalendarComponent},
-      {path: 'editCustomer/:id', component: EditCustomerComponent}
+      {path: 'editCustomer/:id', component: EditCustomerComponent},
+      {path: 'registros', component: RegistrosComponent},
     ]
   },
 ];
