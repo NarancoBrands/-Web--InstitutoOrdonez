@@ -27,7 +27,7 @@
                 <td>{{cliente.telefono}}</td>
                 <td class="botones">
                     <div>
-                        <button type="button" class="editar" [routerLink]="['/dashboard/editCustomer',cliente.id]"><i class="fas fa-pen"></i></button>
+                        <button type="button" class="editar" [routerLink]="['/admin/dashboard/editCustomer',cliente.id]"><i class="fas fa-pen"></i></button>
                         <button type="button" class="borrar" (click)="abrirModal(cliente.id)">
                             <i class="fas fa-trash"></i>
                         </button>

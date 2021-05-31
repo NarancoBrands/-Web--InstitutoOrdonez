@@ -1,0 +1,36 @@
+.posicion {
+  padding: 30px 30px 0;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+}
+
+label{
+    font-weight: bold;
+}
+
+.btn-style-two {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+  color: #ffffff;
+  font-size: 16px;
+  border-radius: 10px;
+  background-color: #02023E;
+  font-weight: 700;
+  padding: 8px 30px;
+  border: 2px solid #02023E;
+  line-height: 30px;
+}
+
+.btn-style-two:hover {
+  color: #02023E;
+  background-color: transparent;
+}
+
+.theme-btn {
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  min-width: 150px;
+}

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,31 +8,22 @@ import { Router } from '@angular/router';
 })
 export class AdminComponent implements OnInit {
 
-  logo = 'assets/logo-ok.png';
-  
-  loginForm = new FormGroup
-  ({
-    email: new FormControl(''),
-    password: new FormControl('')
-  });
-
   constructor(private router: Router) { }
 
-  ngOnInit(): void {
+  comprobarLogin() {
+    let currentUser = localStorage.getItem("currentUser");
+    let url;
+
+    //si currentUser existe y no esta vacio puede navegar, sino no pasara de inicio
+    if (currentUser != null && currentUser != "") {
+
+    } else {
+      this.router.navigate(["admin/login"]);
+    }
   }
 
-  onLogin() {
-    const { email, password } = this.loginForm.value;
-    this.router.navigate(['./dashboard/listCustomer']);
-    // try {
-    //   const user = this.authSvc.login(email, password);
-    //   if (user) {
-    //     this.router.navigate(['./dashboard/categories']);
-    //   }
-    // }
-    // catch {
-    //   console.log("errro");
-    // }
+  ngOnInit() {
+    this.comprobarLogin();
   }
 
 }

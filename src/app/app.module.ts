@@ -25,6 +25,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import * as moment from 'moment';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegistrosComponent } from './components/admin/dashboard/registros/registros.component';
+import { AgendaComponent } from './components/admin/dashboard/agenda/agenda.component';
+import { LoginComponent } from './components/admin/login/login.component';
 
 //http
 
@@ -44,7 +46,9 @@ export function momentAdapterFactory() {
     ListCustomerComponent,
     CalendarComponent,
     EditCustomerComponent,
-    RegistrosComponent
+    RegistrosComponent,
+    AgendaComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
