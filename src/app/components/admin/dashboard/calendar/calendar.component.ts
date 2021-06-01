@@ -1,4 +1,4 @@
-import {Component,ChangeDetectionStrategy,ViewChild,TemplateRef} from '@angular/core';
+import {Component,ChangeDetectionStrategy,ViewChild,TemplateRef, OnInit} from '@angular/core';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal} from '@ng-bootstrap/ng-bootstrap';
@@ -6,7 +6,13 @@ import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, Cal
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment';
 import { CalendarService } from "./calendar.service";
+import { AgendaService } from '../../../../services/agenda.service';
+import { ClientesService } from '../../../../services/clientes.service';
+import { Agenda } from '../../../../models/agenda';
+import { Cliente } from '../../../../models/cliente';
 import { FlatpickrDefaultsInterface } from 'angularx-flatpickr/flatpickr-defaults.service';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 moment.updateLocale('en', {
   week: {
@@ -39,11 +45,11 @@ const colors: any = {
     {
       provide: CalendarEventTitleFormatter,
       useClass: CalendarService,
-    },
+    }, AgendaService, ClientesService
   ],
 })
 
-export class CalendarComponent {
+export class CalendarComponent implements OnInit{
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
   view: CalendarView = CalendarView.Month;
@@ -51,6 +57,12 @@ export class CalendarComponent {
   CalendarView = CalendarView;
 
   viewDate: Date = new Date();
+
+  public agendas:Array <Agenda>;
+  public cliente:Cliente;
+  public agenda:Agenda;
+
+  activeDayIsOpen: boolean = true;
 
   modalData: {
     action: string;
@@ -78,7 +90,7 @@ export class CalendarComponent {
   refresh: Subject<any> = new Subject();
 
   events: CalendarEvent[] = [
-    {
+    /*{
       start: subDays(startOfDay(new Date()), 1),
       end: addDays(new Date(), 1),
       title: 'A 3 day event',
@@ -91,7 +103,7 @@ export class CalendarComponent {
       },
       draggable: true,
       
-    },
+    },*/
     {
       start: startOfDay(new Date()),
       title: 'An event with no end date',
@@ -99,30 +111,10 @@ export class CalendarComponent {
       actions: this.actions,
       
     },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-      allDay: true,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
   ];
 
-  activeDayIsOpen: boolean = true;
-
-  constructor(private modal: NgbModal,private toastr: ToastrService) { }
+  constructor(private modal: NgbModal,private toastr: ToastrService, private _route: ActivatedRoute, private _router: Router, 
+    private _agendaService: AgendaService, private _clienteservice: ClientesService, private fb: FormBuilder) { }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -199,6 +191,45 @@ export class CalendarComponent {
     dateFormat : "Y-m-d H:i",
     // this:
     enable : [{from : new Date(0, 1), to : new Date(new Date().getFullYear() + 200, 12)}]
+  }
+
+  getClientesPorId(){
+    let id
+    this._clienteservice.getClientesPorId(id).subscribe(
+      result => {
+        this.cliente=result;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  getAgendas(){
+    this._agendaService.getClientesAgenda().subscribe(
+      result => {
+        this.agendas=result;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  getAgendasPorId(){
+    let id;
+    this._agendaService.getClienteAgendaPorId(id).subscribe(
+      result => {
+        this.agenda=result;
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
+  ngOnInit(): void {
+    this.getAgendas();
   }
 }
 

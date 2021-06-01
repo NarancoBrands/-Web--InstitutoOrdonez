@@ -51,6 +51,7 @@
 
     <br />
 
+
     <div [ngSwitch]="view">
       <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events"
         [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)"
@@ -65,6 +66,7 @@
         (eventTimesChanged)="eventTimesChanged($event)">
       </mwl-calendar-day-view>
     </div>
+
 
     <!---------------------------------------------------------------------------------------------->
     <!--EVENTOS (MODAL EDIT)-->
@@ -83,12 +85,18 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th>Title</th>
-                <th>Primary color</th>
-                <th>Secondary color</th>
-                <th>Starts at</th>
-                <th>Ends at</th>
-                <th></th>
+                <th>Nombre</th>
+                <th>Estado</th>
+                <th>Donde</th>
+                <th>Tipo Consulta</th>
+                <th>Posicion</th>
+                <th>Zona Tratamiento</th>
+                <th>Tipo tratamiento</th>
+                <th>Cortes</th>
+                <th>Precio</th>
+                <th>Proxima cita</th>
+                <th>Cita con</th>
+                <th>Comentarios</th>
               </tr>
             </thead>
 
@@ -107,15 +115,15 @@
                 </td>
 
                 <td>
-                  <input class="form-control" type="text" mwlFlatpickr  [(ngModel)]="event.start"
+                  <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.start"
                     (ngModelChange)="refresh.next()" [altInput]="true" [convertModelValue]="true" enableTime="true"
-                    dateFormat="Y-m-d H:i" altFormat="F j, Y H:i" placeholder="Not set" [options]="datePickerOptions"/>
+                    dateFormat="Y-m-d H:i" altFormat="F j, Y H:i" placeholder="Not set" [options]="datePickerOptions" />
                 </td>
 
                 <td>
-                  <input class="form-control" type="text" mwlFlatpickr  [(ngModel)]="event.end"
+                  <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.end"
                     (ngModelChange)="refresh.next()" [altInput]="true" [convertModelValue]="true" enableTime="true"
-                    dateFormat="Y-m-d H:i" altFormat="F j, Y H:i" placeholder="Not set" [options]="datePickerOptions"/>
+                    dateFormat="Y-m-d H:i" altFormat="F j, Y H:i" placeholder="Not set" [options]="datePickerOptions" />
                 </td>
 
                 <!------------------------------------------------------------------------------------------------------>

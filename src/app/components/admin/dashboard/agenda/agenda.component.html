@@ -5,8 +5,8 @@
             <div class="form-row">
                 <div class="form-group col-lg-1 col-md-2 col-12">
                     <label for="cliente">Cliente</label>
-                    <select id="inputState" class="form-control" formControlName="idCliente" *ngFor="let cliente of clientes">
-                        <option value="{{cliente.id}}">{{cliente.id}}-{{cliente.nombre}}</option>
+                    <select id="inputState" class="form-control" formControlName="idCliente">
+                        <option value="{{cliente.id}}" *ngFor="let cliente of clientes">{{cliente.id}}-{{cliente.nombre}}</option>
                     </select>
                     <small *ngIf="clienteNoValido" class="text-danger">Seleccione un cliente</small>
                 </div>
