@@ -217,7 +217,7 @@ export class CalendarComponent implements OnInit{
   }
 
   getAgendasPorId(){
-    let id;
+    let id=1;
     this._agendaService.getClienteAgendaPorId(id).subscribe(
       result => {
         this.agenda=result;
@@ -230,6 +230,7 @@ export class CalendarComponent implements OnInit{
 
   ngOnInit(): void {
     this.getAgendas();
+    this.getAgendasPorId();
   }
 }
 

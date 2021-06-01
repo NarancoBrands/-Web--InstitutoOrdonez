@@ -85,46 +85,82 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th>Nombre</th>
+                <th>ID/Nombre</th>
                 <th>Estado</th>
                 <th>Donde</th>
                 <th>Tipo Consulta</th>
                 <th>Posicion</th>
                 <th>Zona Tratamiento</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let calendario of agenda">
+                <td>
+                  <input type="text" class="form-control" [(ngModel)]="calendario.idCliente" (keyup)="refresh.next()" />
+                </td>
+
+                <td>
+                  <input type="text" [(ngModel)]="calendario.donde" (change)="refresh.next()" />
+                </td>
+
+                <td>
+                  <input type="text" [(ngModel)]="calendario.estado" (change)="refresh.next()" />
+                </td>
+
+                <td>
+                  <input type="text" [(ngModel)]="calendario.tipo_consulta" (change)="refresh.next()" />
+                </td>
+
+                <td>
+                  <input type="text" [(ngModel)]="calendario.posicion" (change)="refresh.next()" />
+                </td>
+
+                <td>
+                  <input type="text" [(ngModel)]="calendario.zona_tratamiento" (change)="refresh.next()" />
+                </td>
+              </tr>
+
+              <tr>
                 <th>Tipo tratamiento</th>
                 <th>Cortes</th>
                 <th>Precio</th>
                 <th>Proxima cita</th>
                 <th>Cita con</th>
                 <th>Comentarios</th>
+                <th></th>
               </tr>
-            </thead>
 
-            <tbody>
-              <tr *ngFor="let event of events">
+              <tr *ngFor="let calendario of agenda">
                 <td>
-                  <input type="text" class="form-control" [(ngModel)]="event.title" (keyup)="refresh.next()" />
+                  <input type="text" [(ngModel)]="calendario.tipo_tratamiento" (change)="refresh.next()" />
                 </td>
 
                 <td>
-                  <input type="color" [(ngModel)]="event.color.primary" (change)="refresh.next()" />
+                  <input type="text" [(ngModel)]="calendario.cortes" (change)="refresh.next()" />
                 </td>
 
                 <td>
-                  <input type="color" [(ngModel)]="event.color.secondary" (change)="refresh.next()" />
+                  <input type="text" [(ngModel)]="calendario.precio" (change)="refresh.next()" />
                 </td>
 
                 <td>
-                  <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.start"
+                  <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="calendario.prox_cita"
                     (ngModelChange)="refresh.next()" [altInput]="true" [convertModelValue]="true" enableTime="true"
                     dateFormat="Y-m-d H:i" altFormat="F j, Y H:i" placeholder="Not set" [options]="datePickerOptions" />
                 </td>
 
                 <td>
-                  <input class="form-control" type="text" mwlFlatpickr [(ngModel)]="event.end"
-                    (ngModelChange)="refresh.next()" [altInput]="true" [convertModelValue]="true" enableTime="true"
-                    dateFormat="Y-m-d H:i" altFormat="F j, Y H:i" placeholder="Not set" [options]="datePickerOptions" />
+                  <input type="text" [(ngModel)]="calendario.cita_con" (change)="refresh.next()" />
                 </td>
+
+                <td>
+                  <input type="text" [(ngModel)]="calendario.comentarios" (change)="refresh.next()" />
+                </td>
+
+                <!--<td>
+                  <input type="color" [(ngModel)]="calendario.comentarios" (change)="refresh.next()" />
+                </td>-->
 
                 <!------------------------------------------------------------------------------------------------------>
                 <!--DELETE-->
