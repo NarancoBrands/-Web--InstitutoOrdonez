@@ -13,6 +13,7 @@ import { Cliente} from '../../../../models/cliente';
   styleUrls: ['./agenda.component.css'],
   providers: [AgendaService, ClientesService]
 })
+
 export class AgendaComponent implements OnInit {
   public agenda:Agenda;
   public clientes:Array<Cliente>;
