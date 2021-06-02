@@ -61,11 +61,12 @@ export class CalendarComponent implements OnInit {
   public locale: string = "es";
   public agendas: Array<Agenda>;
   public clientes: Array<Cliente>;
-  public agenda: Agenda;
   public horario: any = [];
   public contadorHorario: number;
   public activeDayIsOpen: boolean = true;
   public cliente:Array<any>;
+  public horarioModificable;
+  public agenda=[];
 
   modalData: {
     action: string;
@@ -171,7 +172,13 @@ export class CalendarComponent implements OnInit {
     let id=idModal;
     this._agendaService.getClienteAgendaPorId(id).subscribe(
       result => {
-        this.agenda=result;
+        this.agenda=[];
+        result.forEach(element => {
+          let cita=new Date(element.prox_cita);
+          if(cita.getTime()==this.horarioModificable.getTime()){
+            this.agenda.push(element);
+          }
+        });
       },
       error => {
         console.log(<any>error);
@@ -266,6 +273,7 @@ export class CalendarComponent implements OnInit {
   //ABRIR MODAL
 
   handleEvent(action: string, event: CalendarEvent): void {
+    this.horarioModificable=event.start;
     let id=event.title[0];
     this.modalData = { event, action };
     this.getAgendaPorId(id);
