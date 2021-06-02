@@ -6,71 +6,119 @@
                 <div class="form-group col-lg-2 col-md-4 col-12">
                     <label for="cliente">Cliente</label>
                     <select id="inputState" class="form-control" formControlName="idCliente">
-                        <option value="{{cliente.id}}" *ngFor="let cliente of clientes">{{cliente.id}}-{{cliente.nombre}} {{cliente.apellidos}}</option>
+                        <option value="{{cliente.id}}" *ngFor="let cliente of clientes">
+                            {{cliente.id}}-{{cliente.nombre}} {{cliente.apellidos}}</option>
                     </select>
                     <small *ngIf="clienteNoValido" class="text-danger">Seleccione un cliente</small>
                 </div>
 
                 <div class="form-group col-lg-2 col-md-6 col-12">
                     <label for="estado">Estado</label>
-                    <input type="text" class="form-control" id="estado" placeholder="Estado de cita del paciente"
-                    formControlName="estado">
+                    <select id="estado" class="form-control" formControlName="estado">
+                        <option value="Sala de espera" selected>Sala de espera</option>
+                        <option value="Pasarlo">Pasarlo</option>
+                        <option value="En sala">En sala</option>
+                        <option value="Anulado">Anulado</option>
+                        <option value="No vino">No vino</option>
+                        <option value="Finalizado">Finalizado</option>
+                    </select>
                 </div>
 
                 <div class="form-group col-lg-3 col-md-4 col-12">
                     <label for="localización">Localización</label>
-                    <input type="text" class="form-control" id="localización" placeholder="Lugar donde se ecuentra el paciente"
-                    formControlName="donde">
+                    <select id="localización" class="form-control" formControlName="donde">
+                        <option value="Despacho 1">Despacho 1</option>
+                        <option value="Sala 1">Sala 1</option>
+                        <option value="Sala 2">Sala 2</option>
+                        <option value="Sala 3">Sala 3</option>
+                        <option value="Sala 4">Sala 4</option>
+                        <option value="Sala 5">Sala 5</option>
+                        <option value="Sala 6">Sala 6</option>
+                        <option value="Sala 7">Sala 7</option>
+                        <option value="Sala 8">Sala 8</option>
+                        <option value="Quirofano">Quirófano</option>
+                    </select>
                 </div>
 
                 <div class="form-group col-lg-3 col-md-5 col-12">
                     <label for="consulta">Tipo consulta</label>
-                    <input type="text" class="form-control" id="consulta" placeholder="Tipo de consulta para el paciente"
-                    formControlName="tipo_consulta">
+                    <select id="consulta" class="form-control" formControlName="tipo_consulta">
+                        <option value="Primera cita">Primera cita</option>
+                        <option value="Tratamiento">Tratamiento</option>
+                        <option value="Consulta">Consulta</option>
+                        <option value="Revision">Revisión</option>
+                        <option value="LLamada">LLamada</option>
+                    </select>
                 </div>
 
                 <div class="form-group col-lg-2 col-md-3 col-12">
                     <label for="posicion">Posicion</label>
-                    <input type="text" class="form-control" id="posicion" placeholder="Tipo de posicion para tratar al paciente"
-                    formControlName="posicion">
+                    <select id="posicion" class="form-control" formControlName="posicion">
+                        <option value="Prono">Prono</option>
+                        <option value="Supino">Supino</option>
+                        <option value="Sentado">Sentado</option>
+                    </select>
                 </div>
 
                 <div class="form-group col-lg-3 col-md-4 col-12">
                     <label for="zona">Zona tratamiento</label>
-                    <input type="text" class="form-control" id="zona" placeholder="Parte del cuerpo a tratar"
-                    formControlName="zona_tratamiento">
+                    <select id="zona" class="form-control" formControlName="zona_tratamiento">
+                        <option value="Cervical">Cervical</option>
+                        <option value="Dorsal">Dorsal</option>
+                        <option value="Lumbar">Lumbar</option>
+                        <option value="Hombro">Hombro</option>
+                        <option value="Codo">Codo</option>
+                        <option value="Muñeca">Muñeca</option>
+                        <option value="Cadera">Cadera</option>
+                        <option value="Rodilla">Rodilla</option>
+                        <option value="Pie">Pie</option>
+                    </select>
                 </div>
 
                 <div class="form-group col-lg-4 col-md-6 col-12">
                     <label for="tipo">Tipo tratamiento</label>
-                    <input type="text" class="form-control" id="tipo" placeholder="Tipo de tratamiento para el paciente"
-                    formControlName="tipo_tratamiento">
+
+                    <select id="tipo" class="form-control" formControlName="tipo_tratamiento">
+                        <option value="Infiltraccion">Infiltraccion</option>
+                        <option value="Ac Hialuronico">Ac Hialuronico</option>
+                        <option value="Ozono Paravt">Ozono Paravt</option>
+                        <option value="Extraccion Sangre">Extraccion Sangre</option>
+                        <option value="Limpieza calcificacion">Limpieza calcificacion</option>
+                        <option value="Apoyo quirofano">Apoyo quirofano</option>
+                        <option value="PRP">PRP</option>
+                        <option value="Fc Monocitos">Fc Monocitos</option>
+                    </select>
                 </div>
 
                 <div class="form-group col-lg-1 col-md-2 col-12">
                     <label for="cortes">Cortes</label>
-                    <input type="text" class="form-control" id="cortes" placeholder="Nº de cortes" formControlName="cortes">
+                    <input type="text" class="form-control" id="cortes" placeholder="Nº de cortes"
+                        formControlName="cortes">
                     <small *ngIf="cortesNoValido" class="text-danger">Solo números, ejemplo: (10)</small>
                 </div>
 
                 <div class="form-group col-lg-2 col-md-4 col-12">
                     <label for="precio">Precio</label>
-                    <input type="text" class="form-control" id="precio" placeholder="Precio de la consulta" formControlName="precio">
+                    <input type="text" class="form-control" id="precio" placeholder="Precio de la consulta"
+                        formControlName="precio">
                     <small *ngIf="precioNoValido" class="text-danger">Solo números, ejemplo: (10)</small>
                 </div>
 
                 <div class="form-group col-lg-2 col-md-4 col-12">
                     <label for="cita">Cita con</label>
                     <select id="cita" class="form-control" formControlName="cita_con">
-                        <option value="Ivan">1-Ivan</option>
-                        <option value="Manolo">2-Manolo</option>
+                        <option value="Simon">Simon</option>
+                        <option value="Sebas">Sebas</option>
+                        <option value="Jose Luis">Jose Luis</option>
+                        <option value="Picatto">Picatto</option>
+                        <option value="Guille">Guille</option>
                     </select>
                 </div>
 
                 <div class="form-group col-lg-2 col-md-4 col-12">
                     <label for="prox">Proxima cita</label>
-                    <input type="text" class="form-control" id="prox" mwlFlatpickr dateFormat="Y-m-d H:i" altFormat="F j, Y H:i"
-                    [options]="datePickerOptions" formControlName="prox_cita">
+                    <input type="text" class="form-control" id="prox" mwlFlatpickr dateFormat="Y-m-d H:i"
+                        altFormat="F j, Y H:i" [options]="datePickerOptions" formControlName="prox_cita">
                 </div>
 
                 <div class="form-group col-12">

@@ -12,16 +12,16 @@
 
           <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
             (viewDateChange)="closeOpenMonthViewDay()">
-            Previous
+            Anterior
           </div>
 
           <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
-            Today
+            Hoy
           </div>
 
           <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
             (viewDateChange)="closeOpenMonthViewDay()">
-            Next
+            Siguiente
           </div>
 
         </div>
@@ -36,13 +36,13 @@
         <div class="btn-group">
           <div class="btn btn-primary" (click)="setView(CalendarView.Month)"
             [class.active]="view === CalendarView.Month">
-            Month
+            Mes
           </div>
           <div class="btn btn-primary" (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
-            Week
+            Semana
           </div>
           <div class="btn btn-primary" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
-            Day
+            Día
           </div>
         </div>
       </div>
@@ -73,14 +73,51 @@
     <ng-template #modalContent let-close="close">
       <!--CABECERA-->
       <div class="modal-header">
-        <h3> Edit events </h3>
-        <button class="btn btn-primary float-right" (click)="addEvent()">
-          Add new
-        </button>
+        <h3> Agenda de cliente </h3>
+        <!--<button class="btn btn-primary float-right" (click)="addEvent()">
+          Añadir nuevo
+        </button>-->
       </div>
-      <!----------------------------------------------------------------------------------------------------------------------->
-      <!--TABLA CON LOS EVENTOS-->
       <div class="modal-body">
+        <div class="form-row col-12">
+          <label class="h5" *ngFor="let paciente of cliente"><span class="negrita">Cliente:</span> {{paciente.nombre}}
+            {{paciente.apellidos}}</label>
+        </div>
+
+        <div class="form-row col-12" *ngFor="let calendario of agenda">
+          <div class="form-group col-md-4 col-12 p-0">
+            <label for="selectEstado" class="negrita">Estado del paciente: </label>
+            <select id="selectEstado" class="form-control">
+              <option selected>{{calendario.estado}}</option>
+              <option *ngIf="calendario.estado!='Sala de espera'">Sala de espera</option>
+              <option *ngIf="calendario.estado!='Pasarlo'">Pasarlo</option>
+              <option *ngIf="calendario.estado!='En sala'">En sala</option>
+              <option *ngIf="calendario.estado!='Anulado'">Anulado</option>
+              <option *ngIf="calendario.estado!='No vino'">No vino</option>
+              <option *ngIf="calendario.estado!='Finalizado'">Finalizado</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-4 col-12 p-0">
+            <label for="selectEstado" class="negrita">Localización: </label>
+            <select id="selectEstado" class="form-control">
+              <option selected>{{calendario.donde}}</option>
+              <option *ngIf="calendario.donde!='Despacho 1'">Despacho 1</option>
+              <option *ngIf="calendario.donde!='Sala 1'">Sala 1</option>
+              <option *ngIf="calendario.donde!='Sala 2'">Sala 2</option>
+              <option *ngIf="calendario.donde!='Sala 3'">Sala 3</option>
+              <option *ngIf="calendario.donde!='Sala 4'">Sala 4</option>
+              <option *ngIf="calendario.donde!='Sala 5'">Sala 5</option>
+              <option *ngIf="calendario.donde!='Sala 6'">Sala 6</option>
+              <option *ngIf="calendario.donde!='Sala 7'">Sala 7</option>
+              <option *ngIf="calendario.donde!='Sala 8'">Sala 8</option>
+              <option *ngIf="calendario.donde!='Quirofano'">Quirófano</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!--<div class="modal-body">
         <div class="table-responsive">
           <table class="table table-bordered">
             <thead>
@@ -158,12 +195,10 @@
                   <input type="text" [(ngModel)]="calendario.comentarios" (change)="refresh.next()" />
                 </td>
 
-                <!--<td>
+                <td>
                   <input type="color" [(ngModel)]="calendario.comentarios" (change)="refresh.next()" />
-                </td>-->
+                </td>
 
-                <!------------------------------------------------------------------------------------------------------>
-                <!--DELETE-->
                 <td>
                   <button type="button" class="borrado" (click)="deleteEvent(event)">
                     <i class="fas fa-trash"></i>
@@ -174,7 +209,7 @@
             </tbody>
           </table>
         </div>
-      </div>
+      </div>-->
     </ng-template>
 
   </div>
