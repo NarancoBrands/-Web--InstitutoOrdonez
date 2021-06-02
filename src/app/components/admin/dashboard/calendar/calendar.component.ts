@@ -183,7 +183,7 @@ export class CalendarComponent implements OnInit {
 
   añadirEvento(horario: Date, cliente): void {
     //guardamos en dos variables los datos que nos llegan
-    let horarioEvento=horario;
+    let horarioEvento=new Date(horario);
     var clienteEvento
 
     //realizamos un for para guardar en una de esas variables los datos que necesitamos del modelo de cliente
@@ -196,7 +196,7 @@ export class CalendarComponent implements OnInit {
       ...this.events,
       {
         title: clienteEvento,
-        start: startOfDay(new Date(horarioEvento)),
+        start: horarioEvento,
         color: colors.red,
         draggable: true,
         resizable: {
@@ -301,6 +301,12 @@ export class CalendarComponent implements OnInit {
     dateFormat: "Y-m-d H:i",
     // this:
     enable: [{ from: new Date(0, 1), to: new Date(new Date().getFullYear() + 200, 12) }]
+  }
+
+  //CERRAR MODAL
+
+  cerrarModal(){
+    this.modal.dismissAll();
   }
 
   ngOnInit(): void {
