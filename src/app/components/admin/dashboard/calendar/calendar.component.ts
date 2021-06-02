@@ -62,6 +62,8 @@ export class CalendarComponent implements OnInit {
   public agendas: Array<Agenda>;
   public cliente: Cliente;
   public agenda: Agenda;
+  public horario: Date = new Date();
+  public contadorHorario: number;
 
   activeDayIsOpen: boolean = true;
 
@@ -69,6 +71,8 @@ export class CalendarComponent implements OnInit {
     action: string;
     event: CalendarEvent;
   };
+
+  //ACCIONES EN EL COLLAPSE DEL CALENDARIO
 
   actions: CalendarEventAction[] = [
     {
@@ -90,122 +94,26 @@ export class CalendarComponent implements OnInit {
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [/*{
-    start: subDays(startOfDay(new Date()), 1),
-    end: addDays(new Date(), 1),
-    title: 'A 3 day event',
-    color: colors.red,
-    actions: this.actions,
-    allDay: true,
-    resizable: {
-      beforeStart: true,
-      afterEnd: true,
-    },
-    draggable: true,
-    
-  },*/
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions,
-
-    },];
-
   constructor(private modal: NgbModal, private toastr: ToastrService, private _route: ActivatedRoute, private _router: Router,
-    private _agendaService: AgendaService, private _clienteservice: ClientesService, private fb: FormBuilder) { }
+    private _agendaService: AgendaService, private _clienteservice: ClientesService, private fb: FormBuilder) {
+  }
+
+  //SUBSCRIBES DE LOS SERVICIOS DE AGENDAS Y CLIENTES
 
   getAgendas() {
+    this.contadorHorario = 0;
     this._agendaService.getClientesAgenda().subscribe(
       result => {
         this.agendas = result;
         this.agendas.forEach(element => {
-          console.log(new Date());
-          console.log(element.prox_cita);
-          //this.viewDate = parseISO(element.prox_cita);
+          this.horario = element.prox_cita;
+          this.contadorHorario++;
         });
       },
       error => {
         console.log(<any>error);
       }
     );
-  }
-
-  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    if (isSameMonth(date, this.viewDate)) {
-      if (
-        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-        events.length === 0
-      ) {
-        this.activeDayIsOpen = false;
-      } else {
-        this.activeDayIsOpen = true;
-      }
-      this.viewDate = date;
-    }
-  }
-
-  eventTimesChanged({
-    event,
-    newStart,
-    newEnd,
-  }: CalendarEventTimesChangedEvent): void {
-    this.events = this.events.map((iEvent) => {
-      if (iEvent === event) {
-        return {
-          ...event,
-          start: newStart,
-          end: newEnd,
-        };
-      }
-      return iEvent;
-    });
-    this.handleEvent('Dropped or resized', event);
-  }
-
-  handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    this.modal.open(this.modalContent, { size: 'xl' });
-  }
-
-  addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
-    ];
-  }
-
-  deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter((event) => event !== eventToDelete);
-    this.toastr.success('El usuario ha sido eliminado', '', { "positionClass": "toast-bottom-right" });
-  }
-
-  setView(view: CalendarView) {
-    this.view = view;
-  }
-
-  closeOpenMonthViewDay() {
-    this.activeDayIsOpen = false;
-  }
-
-
-  public datePickerOptions: FlatpickrDefaultsInterface = {
-    allowInput: true,
-    enableTime: true,
-    mode: 'single',
-    dateFormat: "Y-m-d H:i",
-    // this:
-    enable: [{ from: new Date(0, 1), to: new Date(new Date().getFullYear() + 200, 12) }]
   }
 
   getClientesPorId() {
@@ -235,6 +143,123 @@ export class CalendarComponent implements OnInit {
   ngOnInit(): void {
     this.getAgendas();
     this.getAgendasPorId();
+  }
+
+   //ARRAY DE EVENTOS EN EL CALENDARIO
+
+   events: CalendarEvent[] = [/*{
+    start: subDays(startOfDay(new Date()), 1),
+    end: addDays(new Date(), 1),
+    title: 'A 3 day event',
+    color: colors.red,
+    actions: this.actions,
+    allDay: true,
+    resizable: {
+      beforeStart: true,
+      afterEnd: true,
+    },
+    draggable: true,
+    
+  },*/
+    {
+      start: startOfDay(this.horario),
+      title: 'An event with no end date',
+      color: colors.yellow,
+      actions: this.actions,
+
+    },
+  ];
+
+  //EVENTO DE CLICKAR EN UN DIA
+
+  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+    if (isSameMonth(date, this.viewDate)) {
+      if (
+        (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
+        events.length === 0
+      ) {
+        this.activeDayIsOpen = false;
+      } else {
+        this.activeDayIsOpen = true;
+      }
+      this.viewDate = date;
+    }
+  }
+
+  //CAMBIOS DE EVENTOS
+
+  eventTimesChanged({
+    event,
+    newStart,
+    newEnd,
+  }: CalendarEventTimesChangedEvent): void {
+    this.events = this.events.map((iEvent) => {
+      if (iEvent === event) {
+        return {
+          ...event,
+          start: newStart,
+          end: newEnd,
+        };
+      }
+      return iEvent;
+    });
+    this.handleEvent('Dropped or resized', event);
+  }
+
+  //ABRIR MODAL
+
+  handleEvent(action: string, event: CalendarEvent): void {
+    this.modalData = { event, action };
+    this.modal.open(this.modalContent, { size: 'xl' });
+  }
+
+  //AÑADIR EVENTO EN EL MODAL
+
+  addEvent(): void {
+    this.events = [
+      ...this.events,
+      {
+        title: 'New event',
+        start: startOfDay(new Date()),
+        end: endOfDay(new Date()),
+        color: colors.red,
+        draggable: true,
+        resizable: {
+          beforeStart: true,
+          afterEnd: true,
+        },
+      },
+    ];
+  }
+
+  //BORRAR EVENTO
+
+  deleteEvent(eventToDelete: CalendarEvent) {
+    this.events = this.events.filter((event) => event !== eventToDelete);
+    this.toastr.success('El usuario ha sido eliminado', '', { "positionClass": "toast-bottom-right" });
+  }
+
+  //CAMBIAR LA VISTA DEL CALENDARIO
+
+  setView(view: CalendarView) {
+    this.view = view;
+  }
+
+  //CERRAR COLLAPSE
+
+  closeOpenMonthViewDay() {
+    this.activeDayIsOpen = false;
+  }
+
+  //OPCIONES PARA EL MWLFLATPICKR
+
+  public datePickerOptions: FlatpickrDefaultsInterface = {
+    allowInput: true,
+    enableTime: true,
+    mode: 'single',
+    dateFormat: "Y-m-d H:i",
+    // this:
+    enable: [{ from: new Date(0, 1), to: new Date(new Date().getFullYear() + 200, 12) }]
   }
 }
 

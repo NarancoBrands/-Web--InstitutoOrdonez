@@ -3,10 +3,10 @@
     <div class="col-12 posicion overflow-auto">
         <form [formGroup]="agendaForm" (ngSubmit)="onSubmit()">
             <div class="form-row">
-                <div class="form-group col-lg-1 col-md-2 col-12">
+                <div class="form-group col-lg-2 col-md-4 col-12">
                     <label for="cliente">Cliente</label>
                     <select id="inputState" class="form-control" formControlName="idCliente">
-                        <option value="{{cliente.id}}" *ngFor="let cliente of clientes">{{cliente.id}}-{{cliente.nombre}}</option>
+                        <option value="{{cliente.id}}" *ngFor="let cliente of clientes">{{cliente.id}}-{{cliente.nombre}} {{cliente.apellidos}}</option>
                     </select>
                     <small *ngIf="clienteNoValido" class="text-danger">Seleccione un cliente</small>
                 </div>
@@ -29,7 +29,7 @@
                     formControlName="tipo_consulta">
                 </div>
 
-                <div class="form-group col-lg-3 col-md-3 col-12">
+                <div class="form-group col-lg-2 col-md-3 col-12">
                     <label for="posicion">Posicion</label>
                     <input type="text" class="form-control" id="posicion" placeholder="Tipo de posicion para tratar al paciente"
                     formControlName="posicion">
