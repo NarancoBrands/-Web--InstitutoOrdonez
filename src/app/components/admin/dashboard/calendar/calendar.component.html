@@ -82,26 +82,26 @@
         </button>-->
       </div>
       <div class="modal-body">
-        <div class="form-row col-12">
+        <div class="form-row">
           <label class="h5" *ngFor="let paciente of cliente">{{paciente.nombre}} {{paciente.apellidos}}</label>
         </div>
 
-        <div *ngFor="let calendario of agenda" class="col-12">
+        <div *ngFor="let calendario of agenda" class="col-12 p-0">
           <div class="form-group col-md-4 col-12 p-0">
             <label for="selectEstado" class="negrita">Estado del paciente: </label>
-            <select id="selectEstado" class="form-control">
+            <select id="selectEstado" class="form-control" [formControl]="selected">
               <option selected>{{calendario.estado}}</option>
-              <option *ngIf="calendario.estado!='Fuera de torno'">Fuera de torno</option>
-              <option *ngIf="calendario.estado!='Sala de espera'">Sala de espera</option>
-              <option *ngIf="calendario.estado!='Pasarlo'">Pasarlo</option>
-              <option *ngIf="calendario.estado!='En sala'">En sala</option>
-              <option *ngIf="calendario.estado!='Anulado'">Anulado</option>
-              <option *ngIf="calendario.estado!='No vino'">No vino</option>
-              <option *ngIf="calendario.estado!='Finalizado'">Finalizado</option>
+              <option *ngIf="calendario.estado!='Fuera de torno'" value="Fuera de torno">Fuera de torno</option>
+              <option *ngIf="calendario.estado!='Sala de espera'" value="Sala de espera">Sala de espera</option>
+              <option *ngIf="calendario.estado!='Pasarlo'" value="Pasarlo">Pasarlo</option>
+              <option *ngIf="calendario.estado!='En sala'" value="En sala">En sala</option>
+              <option *ngIf="calendario.estado!='Anulado'" value="Anulado">Anulado</option>
+              <option *ngIf="calendario.estado!='No vino'" value="No vino">No vino</option>
+              <option *ngIf="calendario.estado!='Finalizado'" value="Finalizado">Finalizado</option>
             </select>
           </div>
         </div>
-
+        <button class="btn btn-success" (click)="cambiarEstado(paciente.id)" *ngFor="let paciente of cliente">CONFIRMAR</button>
       </div>
 
       <!--<div class="modal-body">

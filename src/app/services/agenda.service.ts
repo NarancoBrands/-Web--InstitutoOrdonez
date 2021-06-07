@@ -33,4 +33,10 @@ export class AgendaService{
     getClienteAgendaPorId(id): Observable<any>{
         return this._http.get(this.url+'/dates/search/'+id);
     }
+
+    editTornoAgenda(estado, id):Observable<any>{
+        console.log(estado);
+        console.log(id);
+        return this._http.post(this.url+'/torno/update/'+id, estado);
+    }
 }

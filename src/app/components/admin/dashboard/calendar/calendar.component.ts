@@ -76,11 +76,19 @@ export class CalendarComponent implements OnInit {
   //variable booleana para comprobar el dia que fue elegido
   public activeDayIsOpen: boolean = true;
   //segunda variable de array de clientes (datos de la tabla clientes)
-  public cliente:Array<any>;
+  public cliente: Array<any>;
   //variable para modificar el horario
   public horarioModificable;
   //segunda variable de array de la agenda (datos de la tabla calendario)
-  public agenda=[];
+  public agenda = [];
+  //variables para modificar los datos dependiendo del select
+  public selected: FormControl = new FormControl(null);
+  public opc: any;
+
+  //formuario para cambiar el estado de una persona
+  estadoForm = new FormGroup({
+    estado: new FormControl(''),
+  });
 
   modalData: {
     action: string;
@@ -88,7 +96,6 @@ export class CalendarComponent implements OnInit {
   };
 
   //ACCIONES EN EL COLLAPSE DEL CALENDARIO
-
   actions: CalendarEventAction[] = [
     {
       label: '<i class="fas fa-fw fa-pencil-alt"></i>',
@@ -127,11 +134,11 @@ export class CalendarComponent implements OnInit {
         //guardamos los datos de las agendas
         this.agendas = result;
         //vamos a buscar los clientes
-        this.agendas.forEach(element=>{
+        this.agendas.forEach(element => {
           //guardamos en una variable horario solamente la fecha de la cita
-          this.horario=element.prox_cita;
+          this.horario = element.prox_cita;
           //llamamos al metodo para sacar un cliente por el id y pasamos el id del cliente la agenda y el horario
-          this.getClientesPorId(this.agendas,this.horario,element.idCliente);
+          this.getClientesPorId(this.agendas, this.horario, element.idCliente);
         });
       },
       error => {
@@ -142,7 +149,7 @@ export class CalendarComponent implements OnInit {
 
   /*este metodo es usado cuando queremos saber los datos de un cliente a través del modal el cual se llama clickando a un cliente
   en el calendario*/
-  getClientePorIdModal(id){
+  getClientePorIdModal(id) {
     //subscribe del cliente que necesitamos
     this._clienteservice.getClientesPorId(id).subscribe(
       result => {
@@ -156,9 +163,9 @@ export class CalendarComponent implements OnInit {
   }
 
   //solamente se usa cuando se entra por primera vez a la página
-  getClientesPorId(agendaCalendario,horarioCalendario,id) {
+  getClientesPorId(agendaCalendario, horarioCalendario, id) {
     //guardamos por si acaso de nuevo las agendas con el dato que enviamos del metodo anterior
-    this.agendas=agendaCalendario;
+    this.agendas = agendaCalendario;
 
     //subscribe del cliente que necesitamos
     this._clienteservice.getClientesPorId(id).subscribe(
@@ -177,14 +184,14 @@ export class CalendarComponent implements OnInit {
   //metodo para añadir eventos y se muestren en el calendario (solamente se usa cuando se entra por primera vez a la página)
   añadirEvento(horario: Date, cliente): void {
     //guardamos en dos variables los datos que nos llegan
-    let horarioEvento=new Date(horario);
+    let horarioEvento = new Date(horario);
     var clienteEvento
 
     //realizamos un for para guardar en una de esas variables, los datos que necesitamos del modelo de cliente
-    for(let i=0; i<cliente.length; i++){
-      clienteEvento= [cliente[i].id,cliente[i].nombre, cliente[i].apellidos];
+    for (let i = 0; i < cliente.length; i++) {
+      clienteEvento = [cliente[i].id, cliente[i].nombre, cliente[i].apellidos];
     }
-    
+
     //añadimos el evento
     this.events = [
       ...this.events,
@@ -202,20 +209,20 @@ export class CalendarComponent implements OnInit {
   }
 
   //sacar los datos de la agenda por un id concreto
-  getAgendaPorId(idModal){
+  getAgendaPorId(idModal) {
     //recogemos el id del cliente que fue clickado
-    let id=idModal;
+    let id = idModal;
     //realizamos un subscribe ya que ese id coincide con el campo foráneo llamado idCliente del modelo de agenda
     this._agendaService.getClienteAgendaPorId(id).subscribe(
       result => {
         //inicializamos una segunda variable llamada agenda para guardar los datos en caso de que haya varias citas
-        this.agenda=[];
+        this.agenda = [];
         //realizamos un for each
         result.forEach(element => {
           //por si acaso pasamos a date la cita para que no haya ningun error
-          let cita=new Date(element.prox_cita);
+          let cita = new Date(element.prox_cita);
           //si el horario de la agenda y el horario del cliente que fue clickado es el mismo guardamos el dato
-          if(cita.getTime()==this.horarioModificable.getTime()){
+          if (cita.getTime() == this.horarioModificable.getTime()) {
             this.agenda.push(element);
           }
         });
@@ -282,9 +289,9 @@ export class CalendarComponent implements OnInit {
   //ABRIR MODAL
   handleEvent(action: string, event: CalendarEvent): void {
     //guardamos el horario de la cita del cliente
-    this.horarioModificable=event.start;
+    this.horarioModificable = event.start;
     //guardamos el id del cliente
-    let id=event.title[0];
+    let id = event.title[0];
     this.modalData = { event, action };
     //llamamos al metodo para sacar las citas concretas por el id del cliente
     this.getAgendaPorId(id);
@@ -321,12 +328,41 @@ export class CalendarComponent implements OnInit {
   }
 
   //CERRAR MODAL
-  cerrarModal(){
+  cerrarModal() {
+    this.modal.dismissAll();
+  }
+
+  //en este metodo la variable opc cambia con lo seleccionado en el select
+  Opciones(opc1) {
+    this.opc = opc1;
+  }
+
+  //cambiar el estado de un cliente
+  cambiarEstado(id) {
+    if(this.opc==undefined){
+      this.opc="Fuera de torno";
+    }
+    let estado = this.opc;
+    this.estadoForm.get('estado').setValue(estado);
+
+    this._agendaService.editTornoAgenda(this.estadoForm.value, id).subscribe(
+      result => {
+        console.log("entra");
+        //console.log(result);
+      },
+      error => {
+        console.log(<any>error);
+      }
+    );
     this.modal.dismissAll();
   }
 
   ngOnInit(): void {
     this.getAgendas();
+
+    this.selected.valueChanges.subscribe(changes => {
+      this.Opciones(changes);
+    });
   }
 }
 
