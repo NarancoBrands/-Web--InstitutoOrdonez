@@ -15,7 +15,6 @@ import { Cliente} from '../../../../models/cliente';
 })
 
 export class AgendaComponent implements OnInit {
-  public agenda:Agenda;
   public clientes:Array<Cliente>;
 
   constructor(private _route: ActivatedRoute, private _router: Router, private _agendaService: AgendaService, 
@@ -23,32 +22,32 @@ export class AgendaComponent implements OnInit {
 
   agendaForm = new FormGroup({
     estado: new FormControl(''),
-    donde: new FormControl(''),
-    tipo_consulta: new FormControl(''),
-    posicion: new FormControl(''),
-    zona_tratamiento: new FormControl(''),
-    tipo_tratamiento: new FormControl(''),
-    cortes: new FormControl('',[Validators.required, Validators.pattern("^[0-9]{1,9}$")]),
-    precio: new FormControl('',[Validators.required, Validators.pattern("^[0-9]{1,9}$")]),
+    //donde: new FormControl(''),
+    //tipo_consulta: new FormControl(''),
+    //posicion: new FormControl(''),
+    //zona_tratamiento: new FormControl(''),
+    //tipo_tratamiento: new FormControl(''),
+    //cortes: new FormControl('',[Validators.required, Validators.pattern("^[0-9]{1,9}$")]),
+    //precio: new FormControl('',[Validators.required, Validators.pattern("^[0-9]{1,9}$")]),
     prox_cita: new FormControl(''),
-    cita_con: new FormControl(''),
-    comentarios: new FormControl(''),
+    //cita_con: new FormControl(''),
+    //comentarios: new FormControl(''),
     idCliente: new FormControl('',[Validators.required, Validators.pattern("^[0-9]{1,10}$")]),
   });
 
-  get cortesNoValido() {
+  /*get cortesNoValido() {
     return this.agendaForm.get("cortes").invalid && this.agendaForm.get("cortes").touched;
   }
   get precioNoValido() {
     return this.agendaForm.get("precio").invalid && this.agendaForm.get("precio").touched;
-  }
+  }*/
   get clienteNoValido() {
     return this.agendaForm.get("idCliente").invalid && this.agendaForm.get("idCliente").touched;
   }
 
 
   onSubmit() {
-    this._agendaService.addClienteAgenda(this.agendaForm.value).subscribe(
+    this._agendaService.addTornoAgenda(this.agendaForm.value).subscribe(
       result => {
         this._router.navigate(['admin/dashboard/listCustomer']);
       },

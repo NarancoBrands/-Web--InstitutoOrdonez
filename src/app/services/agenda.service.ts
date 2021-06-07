@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders,  HttpResponse} from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import {GLOBAL} from './global';
 import {Agenda} from '../models/agenda';
+import {AgendaVacia} from '../models/agendaVacia';
 
 @Injectable()
 
@@ -35,8 +36,10 @@ export class AgendaService{
     }
 
     editTornoAgenda(estado, id):Observable<any>{
-        console.log(estado);
-        console.log(id);
         return this._http.post(this.url+'/torno/update/'+id, estado);
+    }
+    
+    addTornoAgenda(agenda:AgendaVacia): Observable<any>{
+        return this._http.post(this.url+'/date/torno/add', agenda);
     }
 }

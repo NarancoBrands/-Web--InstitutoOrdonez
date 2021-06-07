@@ -3,7 +3,7 @@
     <div class="col-12 posicion overflow-auto">
         <form [formGroup]="agendaForm" (ngSubmit)="onSubmit()">
             <div class="form-row">
-                <div class="form-group col-lg-2 col-md-4 col-12">
+                <div class="form-group col-lg-4 col-md-6 col-12">
                     <label for="cliente">Cliente</label>
                     <select id="inputState" class="form-control" formControlName="idCliente">
                         <option value="{{cliente.id}}" *ngFor="let cliente of clientes">
@@ -12,14 +12,20 @@
                     <small *ngIf="clienteNoValido" class="text-danger">Seleccione un cliente</small>
                 </div>
 
-                <div class="form-group col-lg-2 col-md-6 col-12">
+                <div class="form-group col-lg-4 col-md-6 col-12">
                     <label for="estado">Estado</label>
                     <select id="estado" class="form-control" formControlName="estado">
                         <option value="Fuera de Torno" selected>Fuera de torno</option>
                     </select>
                 </div>
 
-                <div class="form-group col-lg-3 col-md-4 col-12">
+                <div class="form-group col-lg-4 col-md-6 col-12">
+                    <label for="prox">Proxima cita</label>
+                    <input type="text" class="form-control" id="prox" mwlFlatpickr dateFormat="Y-m-d H:i"
+                        altFormat="F j, Y H:i" [options]="datePickerOptions" formControlName="prox_cita">
+                </div>
+
+                <!--<div class="form-group col-lg-3 col-md-4 col-12">
                     <label for="localización">Localización</label>
                     <select id="localización" class="form-control" formControlName="donde">
                         <option value="Despacho 1">Despacho 1</option>
@@ -119,7 +125,7 @@
                 <div class="form-group col-12">
                     <label for="comentarios">Comentarios</label>
                     <textarea class="form-control" id="comentarios" rows="3" formControlName="comentarios"></textarea>
-                </div>
+                </div>-->
             </div>
             <button type="submit" class="theme-btn btn-style-two" [disabled]="!agendaForm.valid">Enviar</button>
         </form>
