@@ -87,7 +87,7 @@
         </div>
 
         <div *ngFor="let calendario of agenda" class="col-12 p-0">
-          <div class="form-group col-md-4 col-12 p-0">
+          <div class="form-group col-md-4 col-12 p-0" *ngIf="calendario.estado!='Fuera de torno'">
             <label for="selectEstado" class="negrita">Estado del paciente: </label>
             <select id="selectEstado" class="form-control" [formControl]="selected">
               <option selected>{{calendario.estado}}</option>
@@ -100,8 +100,17 @@
               <option *ngIf="calendario.estado!='Finalizado'" value="Finalizado">Finalizado</option>
             </select>
           </div>
+
+          <div class="form-group col-md-4 col-12 p-0" *ngIf="calendario.estado=='Fuera de torno'">
+            <label for="selectEstado" class="negrita">Estado del paciente: </label>
+            <select id="selectEstado" class="form-control" [formControl]="selected">
+              <option selected>{{calendario.estado}}</option>
+              <option *ngIf="calendario.estado!='Sala de espera'" value="Sala de espera">Sala de espera</option>
+            </select>
+          </div>
         </div>
-        <button class="btn btn-success" (click)="cambiarEstado(paciente.id)" *ngFor="let paciente of cliente">CONFIRMAR</button>
+        <button class="btn btn-success" (click)="cambiarEstado(agendaCliente.id)"
+          *ngFor="let agendaCliente of agenda">CONFIRMAR</button>
       </div>
 
       <!--<div class="modal-body">

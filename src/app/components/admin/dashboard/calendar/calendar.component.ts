@@ -339,16 +339,15 @@ export class CalendarComponent implements OnInit {
 
   //cambiar el estado de un cliente
   cambiarEstado(id) {
-    if(this.opc==undefined){
-      this.opc="Fuera de torno";
+    if (this.opc == undefined) {
+      this.opc = "Fuera de torno";
     }
+
     let estado = this.opc;
     this.estadoForm.get('estado').setValue(estado);
 
     this._agendaService.editTornoAgenda(this.estadoForm.value, id).subscribe(
       result => {
-        console.log("entra");
-        //console.log(result);
       },
       error => {
         console.log(<any>error);
