@@ -206,6 +206,8 @@ export class CalendarComponent implements OnInit {
         },
       },
     ];
+
+    console.log(this.events);
   }
 
   //sacar los datos de la agenda por un id concreto
@@ -235,7 +237,7 @@ export class CalendarComponent implements OnInit {
 
 
   //AÑADIR EVENTO DESDE EL MODAL (actualmente sin uso)
-  addEvent(): void {
+  /*addEvent(): void {
     this.events = [
       ...this.events,
       {
@@ -250,7 +252,7 @@ export class CalendarComponent implements OnInit {
         },
       },
     ];
-  }
+  }*/
 
   //EVENTO DE CLICKAR EN UN DIA
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
