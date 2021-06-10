@@ -10,16 +10,16 @@
       <div class="col-md-4">
         <div class="btn-group">
 
-          <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+          <div class="botonTop" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
             (viewDateChange)="closeOpenMonthViewDay()">
             Anterior
           </div>
 
-          <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
+          <div class="botonMedio" mwlCalendarToday [(viewDate)]="viewDate">
             Hoy
           </div>
 
-          <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+          <div class="botonTop" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
             (viewDateChange)="closeOpenMonthViewDay()">
             Siguiente
           </div>
@@ -34,13 +34,13 @@
       </div>
       <div class="col-md-4">
         <div class="btn-group">
-          <div class="btn btn-primary" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
+          <div class="botonTop" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
             Mes
           </div>
-          <div class="btn btn-primary" (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
+          <div class="botonTop" (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
             Semana
           </div>
-          <div class="btn btn-primary" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
+          <div class="botonTop" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
             Día
           </div>
         </div>

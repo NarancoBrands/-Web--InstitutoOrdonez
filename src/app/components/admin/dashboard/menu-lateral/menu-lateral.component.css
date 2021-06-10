@@ -1,5 +1,5 @@
   .bg-menu {
-      background: #02023e;
+      background: #223645;
   }
 
   #sidebar-wrapper {
@@ -13,14 +13,14 @@
   #sidebar-wrapper .sidebar-heading {
     padding: 0.875rem 1.25rem;
     font-size: 1.9rem;
-    background: #02023e;
+    background: #223645;
     color: white;
     font-weight: 700;
   }
   
   #sidebar-wrapper .list-group {
     width: auto;
-    background: #02023e;
+    background: #223645;
     padding: 30px 0;
     text-align: center;
   }

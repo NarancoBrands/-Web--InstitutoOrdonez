@@ -23,7 +23,7 @@ export class CalendarService extends CalendarEventTitleFormatter {
   }
 
   day(event: CalendarEvent): string {
-    return `<b>${formatDate(event.start, 'hh:mm', this.locale)}</b> ${
+    return `<b>${formatDate(event.start, '', this.locale)}</b> ${
       event.title
     }`;
   }
