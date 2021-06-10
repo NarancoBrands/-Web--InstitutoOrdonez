@@ -18,6 +18,10 @@ export class ClientesService{
         return this._http.get(this.url+'/users/search');
     }
 
+    getClientesPorId(id): Observable<any>{
+        return this._http.get(this.url+'/users/search/'+id);
+    }
+
     deleteCliente(id){
         return this._http.get(this.url+'/users/delete/'+id);
     }
@@ -30,7 +34,13 @@ export class ClientesService{
         return this._http.post(this.url+'/users/update/'+id, cliente);
     }
 
-    getClientesPorId(id): Observable<any>{
-        return this._http.get(this.url+'/users/search/'+id);
+    makeFileRequest(File): Observable<any>{
+        console.log(File);
+        const fd= new FormData();
+        fd.append('archivos',File[0], File[0].name);
+        
+        return this._http.post(this.url+'/users/images',fd);
     }
+
+    
 }

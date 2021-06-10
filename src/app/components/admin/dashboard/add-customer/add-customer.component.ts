@@ -16,6 +16,7 @@ var current_timestamp = moment().format("YYYY/MM/DD hh:mm:ss");
 })
 export class AddCustomerComponent {
   public cliente: Cliente;
+  public imagen=[];
 
   propertyForm = new FormGroup({
     nombre: new FormControl('', [Validators.required, Validators.pattern("^[a-zA-ZñÑ]{3,50}$")]),
@@ -39,8 +40,28 @@ export class AddCustomerComponent {
     return this.propertyForm.get("telefono").invalid && this.propertyForm.get("telefono").touched;
   }
 
+  fileChangeEvent(fileInput: any) {
+    this.imagen = fileInput.target.files;
+  }
 
   onSubmit() {
+    if(this.imagen.length > 0){
+      this._ClienteService.makeFileRequest(this.imagen).subscribe(
+        result => {
+          this.imagen=result;
+          this.propertyForm.get('imagen').setValue(this.imagen);
+          this.añadirCliente();
+        },
+        error => {
+          console.log(<any>error);
+        }
+      );
+    }else{
+      this.añadirCliente();
+    }
+  }
+
+  añadirCliente(){
     this._ClienteService.addContact(this.propertyForm.value).subscribe(
       result => {
         this.cliente = result;

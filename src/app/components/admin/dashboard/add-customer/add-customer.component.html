@@ -13,8 +13,8 @@
                 <!--PARTE DEL FORMULARIO PARA AÑADIR UNA IMÁGEN-->
                 <div class="uploading-outer">
                     <div class="uploadButton">
-                        <input class="uploadButton-input" type="file" name="attachments[]" accept="image/*, application/pdf" id="upload" multiple />
-                        <label class="uploadButton-button ripple-effect" for="upload">Upload Profile Photo</label>
+                        <input class="uploadButton-input" type="file" (change)="fileChangeEvent($event)" id="upload"/>
+                        <label class="uploadButton-button" for="upload">Subir foto de propiedad</label>
                         <span class="uploadButton-file-name"></span>
                     </div>
                 </div>
@@ -24,20 +24,23 @@
                     <!--Formulario-->
                     <form [formGroup]="propertyForm" (ngSubmit)="onSubmit()">
                         <div class="row">
-                            <div class="col-12 col-md-4">
-                                <label>Nombre</label>
-                                <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre" [class.is-invalid]="nombreNoValido" required>
+                            <div class="col-12 col-md-12">
+                                <label for="nombre">Nombre</label>
+                                <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre" 
+                                [class.is-invalid]="nombreNoValido" id="nombre" required>
                                 <small *ngIf="nombreNoValido" class="text-danger">Sin espacios ni caracteres especiales</small>
                             </div>
-                            <div class="col-12 col-md-4">
-                                <label>Apellidos</label>
-                                <input type="text" class="form-control" formControlName="apellidos" placeholder="Apellidos" [class.is-invalid]="apellidosNoValido" required>
+                            <div class="col-12 col-md-12">
+                                <label for="apellidos">Apellidos</label>
+                                <input type="text" class="form-control" formControlName="apellidos" placeholder="Apellidos" 
+                                [class.is-invalid]="apellidosNoValido" id="apellidos" required>
                                 <small *ngIf="apellidosNoValido" class="text-danger">Sin caracteres especiales y con un espacio entre cada apellido (Max. 2 apellidos)</small>
                             </div>
 
-                            <div class="col-12 col-md-4">
-                                <label>Número de telefono</label>
-                                <input type="text" class="form-control" formControlName="telefono" placeholder="Número de telefono" [class.is-invalid]="telefonoNoValido" required>
+                            <div class="col-12 col-md-12">
+                                <label for="telefono">Número de telefono</label>
+                                <input type="text" class="form-control" formControlName="telefono" placeholder="Número de telefono" 
+                                [class.is-invalid]="telefonoNoValido" id="telefono" required>
                                 <small *ngIf="telefonoNoValido" class="text-danger">nueve números y sin espacios</small>
                             </div>
                         </div>
