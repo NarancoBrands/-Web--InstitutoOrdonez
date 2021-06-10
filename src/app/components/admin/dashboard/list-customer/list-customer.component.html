@@ -20,14 +20,16 @@
         </thead>
 
         <tbody>
-            <tr *ngFor="let cliente of clientes">
+            <tr *ngFor="let cliente of clientes | paginate: { itemsPerPage: 10, currentPage: page }">
                 <th scope="row">{{cliente.id}}</th>
                 <td>{{cliente.nombre}}</td>
                 <td>{{cliente.apellidos}}</td>
                 <td>{{cliente.telefono}}</td>
                 <td class="botones">
                     <div>
-                        <button type="button" class="editar" [routerLink]="['/admin/dashboard/editCustomer',cliente.id]"><i class="fas fa-pen"></i></button>
+                        <button type="button" class="editar"
+                            [routerLink]="['/admin/dashboard/editCustomer',cliente.id]"><i
+                                class="fas fa-pen"></i></button>
                         <button type="button" class="borrar" (click)="abrirModal(cliente.id)">
                             <i class="fas fa-trash"></i>
                         </button>
@@ -36,22 +38,21 @@
             </tr>
         </tbody>
     </table>
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
 
     <!------------------------------------------------------------------------------------------------------------------------->
     <!--MODAL-->
     <ng-template #modalContent let-modal>
-        <!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog-centered modal-dialog" role="document">-->
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">¿Deseas borrar al usuario?</h5>
             </div>
             <div class="modal-footer">
-                <button (click)="acceptDelete(idModal) " type="button" class="editar" data-dismiss="modal"><i class="fas fa-check"></i></button>
-                <button (click)="modal.close()" type="button" class="borrar" data-dismiss="modal"><i class="fas fa-times"></i></button>
+                <button (click)="acceptDelete(idModal) " type="button" class="editar" data-dismiss="modal"><i
+                        class="fas fa-check"></i></button>
+                <button (click)="modal.close()" type="button" class="borrar" data-dismiss="modal"><i
+                        class="fas fa-times"></i></button>
             </div>
         </div>
-        <!--</div>
-        </div>-->
     </ng-template>
 </div>

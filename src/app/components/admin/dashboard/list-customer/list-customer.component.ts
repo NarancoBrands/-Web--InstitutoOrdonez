@@ -15,6 +15,7 @@ export class ListCustomerComponent implements OnInit {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
   public clientes:Array<Cliente>;
   public idModal;
+  public page:number=1;
 
   constructor(private toastr: ToastrService, private _route:ActivatedRoute,private _router:Router, 
   private _ClientesService: ClientesService, private modal: NgbModal) {}

@@ -206,8 +206,6 @@ export class CalendarComponent implements OnInit {
         },
       },
     ];
-
-    console.log(this.events);
   }
 
   //sacar los datos de la agenda por un id concreto

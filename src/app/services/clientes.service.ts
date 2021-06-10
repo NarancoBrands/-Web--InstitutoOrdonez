@@ -35,7 +35,6 @@ export class ClientesService{
     }
 
     makeFileRequest(File): Observable<any>{
-        console.log(File);
         const fd= new FormData();
         fd.append('archivos',File[0], File[0].name);
         
