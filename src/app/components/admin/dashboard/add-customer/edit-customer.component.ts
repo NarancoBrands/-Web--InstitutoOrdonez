@@ -45,6 +45,23 @@ export class EditCustomerComponent {
 
 
   onSubmit() {
+    if(this.imagen.length > 0){
+      this._ClienteService.makeFileRequest(this.imagen).subscribe(
+        result => {
+          this.imagen=result;
+          this.propertyForm.get('imagen').setValue(this.imagen);
+          this.editarDato();
+        },
+        error => {
+          console.log(<any>error);
+        }
+      );
+    }else{
+      this.editarDato();
+    }
+  }
+
+  editarDato(){
     this._route.params.forEach((params: Params) => {
       let id = params['id'];
       this._ClienteService.editContact(id, this.propertyForm.value).subscribe(
@@ -68,6 +85,7 @@ export class EditCustomerComponent {
             this.propertyForm.get('nombre').setValue(this.cliente[i].nombre);
             this.propertyForm.get('apellidos').setValue(this.cliente[i].apellidos);
             this.propertyForm.get('telefono').setValue(this.cliente[i].telefono);
+            this.propertyForm.get('imagen').setValue(this.cliente[i].imagen);
           }
         }, error => {
           console.log(<any>error);
