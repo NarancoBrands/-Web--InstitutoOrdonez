@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef, OnInit } from '@angular/core';
 import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours, parseISO } from 'date-fns';
-import { of, Subject } from 'rxjs';
+import { of, Subject, Subscription } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView, DAYS_OF_WEEK, CalendarEventTitleFormatter } from 'angular-calendar';
 import { ToastrService } from 'ngx-toastr';
@@ -74,7 +74,7 @@ export class CalendarComponent implements OnInit {
   //contador para el array mencionado anteriormente
   public contadorHorario: number;
   //variable booleana para comprobar el dia que fue elegido
-  public activeDayIsOpen: boolean = true;
+  public activeDayIsOpen: boolean = false;
   //segunda variable de array de clientes (datos de la tabla clientes)
   public cliente: Array<any>;
   //variable para modificar el horario
@@ -137,6 +137,7 @@ export class CalendarComponent implements OnInit {
         this.agendas.forEach(element => {
           //guardamos en una variable horario solamente la fecha de la cita
           this.horario = element.prox_cita;
+          
           //llamamos al metodo para sacar un cliente por el id y pasamos el id del cliente la agenda y el horario
           this.getClientesPorId(this.agendas, this.horario, element.idCliente);
         });
@@ -166,7 +167,6 @@ export class CalendarComponent implements OnInit {
   getClientesPorId(agendaCalendario, horarioCalendario, id) {
     //guardamos por si acaso de nuevo las agendas con el dato que enviamos del metodo anterior
     this.agendas = agendaCalendario;
-
     //subscribe del cliente que necesitamos
     this._clienteservice.getClientesPorId(id).subscribe(
       result => {
@@ -191,7 +191,6 @@ export class CalendarComponent implements OnInit {
     for (let i = 0; i < cliente.length; i++) {
       clienteEvento = [cliente[i].id, cliente[i].nombre, cliente[i].apellidos];
     }
-
     //añadimos el evento
     this.events = [
       ...this.events,
@@ -206,6 +205,7 @@ export class CalendarComponent implements OnInit {
         },
       },
     ];
+    this.refresh.next();
   }
 
   //sacar los datos de la agenda por un id concreto
@@ -357,11 +357,12 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAgendas();
+      this.getAgendas();
 
-    this.selected.valueChanges.subscribe(changes => {
-      this.Opciones(changes);
-    });
+      this.selected.valueChanges.subscribe(changes => {
+        console.log("Changes")
+        this.Opciones(changes);
+      });
   }
 }
 
