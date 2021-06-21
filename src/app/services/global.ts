@@ -1,4 +1,4 @@
 export var GLOBAL = {
-    url: 'http://localhost/clinica/index.php',
+    url: 'http://codelove.es/api/clinica/index.php',
     header_color: 'blue'
 };
