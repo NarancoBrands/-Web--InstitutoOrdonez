@@ -86,7 +86,7 @@
         </div>
 
         <div *ngFor="let calendario of agenda" class="col-12 p-0">
-          <div class="form-group col-md-4 col-12 p-0" *ngIf="calendario.estado!='Fuera de torno'">
+          <div class="form-group col-md-4 col-12 p-0" >
             <label for="selectEstado" class="negrita">Estado del paciente: </label>
             <select id="selectEstado" class="form-control" [formControl]="selected">
               <option selected>{{calendario.estado}}</option>
@@ -98,17 +98,88 @@
               <option *ngIf="calendario.estado!='No vino'" value="No vino">No vino</option>
               <option *ngIf="calendario.estado!='Finalizado'" value="Finalizado">Finalizado</option>
             </select>
-          </div>
 
-          <div class="form-group col-md-4 col-12 p-0" *ngIf="calendario.estado=='Fuera de torno'">
-            <label for="selectEstado" class="negrita">Estado del paciente: </label>
-            <select id="selectEstado" class="form-control" [formControl]="selected">
-              <option selected>{{calendario.estado}}</option>
-              <option *ngIf="calendario.estado!='Sala de espera'" value="Sala de espera">Sala de espera</option>
+            <label for="selectDonde" class="negrita">Dónde: </label>
+            <select id="selectDonde" class="form-control" [(ngModel)]='calendario.donde'>
+              <option value="despacho_1">DESPACHO 1</option>
+              <option value="sala_1">SALA 1</option>
+              <option value="sala_2">SALA 2</option>
+              <option value="sala_3">SALA 3</option>
+              <option value="sala_4">SALA 4</option>
+              <option value="sala_5">SALA 5</option>
+              <option value="sala_6">SALA 6</option>
+              <option value="sala_7">SALA 7</option>
+              <option value="sala_8">SALA 8</option>
+              <option value="quirofano">QUIROFANO</option>
+            </select>
+
+            <label for="selectTipoConsulta" class="negrita">Tipo consulta: </label>
+            <select id="selectTipoConsulta" class="form-control" [(ngModel)]='calendario.tipo_consulta'>
+              <option value="cita">1ª CITA</option>
+              <option value="tratamiento">TRATAMIENTO</option>
+              <option value="consulta">CONSULTA</option>
+              <option value="revision">REVISION</option>
+              <option value="llamada">LLAMADA</option>
+            </select>
+
+            <label for="selectPosicion" class="negrita">Posición: </label>
+            <select id="selectPosicion" class="form-control" [(ngModel)]='calendario.posicion'>
+              <option value="prono">PRONO</option>
+              <option value="supino">SUPINO</option>
+              <option value="sentado">SENTADO</option>
+            </select>
+
+            <label for="selectProxCita" class="negrita">Proxima cita: </label>
+            <select id="selectProxCita" class="form-control" [(ngModel)]='calendario.prox_cita'>
+              <option value="2_o_3_dias">2 O 3 DIAS</option>
+              <option value="1_semana">1 SEMANA</option>
+              <option value="2_semana">2 SEMANA</option>
+              <option value="3_semana">3 SEMANA</option>
+              <option value="1_mes">1 MES</option>
+              <option value="2_mes">2 MESES</option>
+              <option value="3_mes">3 MESES</option>
+            </select>
+
+            <label for="selectZonaTratamiento" class="negrita">Zona tratamiento: </label>
+            <select id="selectZonaTratamiento" class="form-control" [(ngModel)]='calendario.zona_tratamiento'>
+              <option value="cervical">CERVICAL</option>
+              <option value="dorsal">DORSAL</option>
+              <option value="lumbar">LUMBAR</option>
+              <option value="hombro">HOMBRO</option>
+              <option value="codo">CODO</option>
+              <option value="muñeca">MUÑECA</option>
+              <option value="cadera">CADERA</option>
+              <option value="rodilla">RODILLA</option>
+              <option value="pie">PIE</option>
+            </select>
+
+            <label for="selectFisio" class="negrita">Fisioterapia: </label>
+            <select id="selectFisio" class="form-control" [(ngModel)]='calendario.fisioterapia'>
+              <option value="movilizacion_articular">MOVILIZACION ARTICULAR</option>
+              <option value="indiba">INDIBA</option>
+              <option value="uhf+m">UHF+M.FASCIA/MASAJE</option>
+              <option value="ir+masaje+fascia">IR+MASAJE/M.FASCIA</option>
+              <option value="electro_masaje">ELECTRO+MASAJE</option>
+              <option value="neuromodulacion">NEUROMODULACION</option>
+              <option value="uhf+pbot">UHF+PBOT</option>
+              <option value="ir+pbot">IR+PBOT</option>
+              <option value="electrosis_percutanea">ELECTROLISIS PERCUTANEA</option>
+              <option value="neuromodulacion">NEUROMODULACION</option>
+              <option value="pbot">PBOT</option>
+            </select>
+
+            <label for="selectCitaCon" class="negrita">Cita con: </label>
+            <select id="selectCitaCon" class="form-control" [(ngModel)]='calendario.cita_con'>
+              <option value="simon">SIMON</option>
+              <option value="sebas">SEBAS</option>
+              <option value="jose">JOSE LUIS</option>
+              <option value="picato">PICATTO</option>
+              <option value="guille">GUILLE</option>
             </select>
           </div>
+
         </div>
-        <button class="btn btn-success" (click)="cambiarEstado(agendaCliente.id)"
+        <button class="btn btn-success" (click)="cambiarEstado(agendaCliente.id, agendaCliente)"
           *ngFor="let agendaCliente of agenda">CONFIRMAR</button>
       </div>
 

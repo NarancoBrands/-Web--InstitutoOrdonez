@@ -88,6 +88,13 @@ export class CalendarComponent implements OnInit {
   //formuario para cambiar el estado de una persona
   estadoForm = new FormGroup({
     estado: new FormControl(''),
+    donde: new FormControl(''),
+    tipoConsulta: new FormControl(''),
+    posicion: new FormControl(''),
+    proxCita: new FormControl(''),
+    zonaTratamiento: new FormControl(''),
+    fisioterapia: new FormControl(''),
+    citaCon: new FormControl(''),
   });
 
   modalData: {
@@ -120,6 +127,8 @@ export class CalendarComponent implements OnInit {
   //variable para refrescar la página?
   refresh: Subject<any> = new Subject();
 
+  //Objeto para guardar el form
+  agendInformation: any = {}
   constructor(private modal: NgbModal, private toastr: ToastrService, private _route: ActivatedRoute, private _router: Router,
     private _agendaService: AgendaService, private _clienteservice: ClientesService, private fb: FormBuilder) {
   }
@@ -147,7 +156,7 @@ export class CalendarComponent implements OnInit {
       }
     );
   }
-
+  
   /*este metodo es usado cuando queremos saber los datos de un cliente a través del modal el cual se llama clickando a un cliente
   en el calendario*/
   getClientePorIdModal(id) {
@@ -338,15 +347,17 @@ export class CalendarComponent implements OnInit {
   }
 
   //cambiar el estado de un cliente
-  cambiarEstado(id) {
+  cambiarEstado(id, calendario) {
     if (this.opc == undefined) {
       this.opc = "Fuera de torno";
     }
-
+   
     let estado = this.opc;
     this.estadoForm.get('estado').setValue(estado);
+    this.estadoForm.get('donde').setValue(this.agendInformation.donde);
+    this.agendInformation.estado = estado;
 
-    this._agendaService.editTornoAgenda(this.estadoForm.value, id).subscribe(
+    this._agendaService.editTornoAgenda(calendario, id).subscribe(
       result => {
       },
       error => {
@@ -360,7 +371,6 @@ export class CalendarComponent implements OnInit {
       this.getAgendas();
 
       this.selected.valueChanges.subscribe(changes => {
-        console.log("Changes")
         this.Opciones(changes);
       });
   }
