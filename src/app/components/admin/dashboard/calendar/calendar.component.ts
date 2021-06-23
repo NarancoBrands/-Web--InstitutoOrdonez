@@ -85,6 +85,8 @@ export class CalendarComponent implements OnInit {
   public selected: FormControl = new FormControl(null);
   public opc: any;
 
+  public dateSelected;
+  public _dateSelectedOriginal;
   //formuario para cambiar el estado de una persona
   estadoForm = new FormGroup({
     estado: new FormControl(''),
@@ -132,7 +134,6 @@ export class CalendarComponent implements OnInit {
   constructor(private modal: NgbModal, private toastr: ToastrService, private _route: ActivatedRoute, private _router: Router,
     private _agendaService: AgendaService, private _clienteservice: ClientesService, private fb: FormBuilder) {
   }
-
   //SUBSCRIBES DE LOS SERVICIOS DE AGENDAS Y CLIENTES
   //------------------------------------------------------------------------------------------------------------------------
   //metodo para sacar todos los datos de la tabla calendario
@@ -297,6 +298,8 @@ export class CalendarComponent implements OnInit {
 
   //ABRIR MODAL
   handleEvent(action: string, event: CalendarEvent): void {
+    this.dateSelected = new Date(event.start);
+    this._dateSelectedOriginal = new Date(event.start);
     //guardamos el horario de la cita del cliente
     this.horarioModificable = event.start;
     //guardamos el id del cliente
@@ -345,7 +348,38 @@ export class CalendarComponent implements OnInit {
   Opciones(opc1) {
     this.opc = opc1;
   }
-
+  getDateFormat(proxCita) {
+    let dateNow: Date = this.dateSelected;
+    if (proxCita === '3_dias'){
+      dateNow.setDate(dateNow.getDate() + 3);
+      return dateNow.toISOString().slice(0, 19).replace('T', ' ');
+    }
+    else if (proxCita === '1_semana') {
+      dateNow.setDate(dateNow.getDate() + 7);
+      return dateNow.toISOString().slice(0, 19).replace('T', ' ');
+    }
+    else if (proxCita === '2_semana') {
+      dateNow.setDate(dateNow.getDate() + 14);
+      return dateNow.toISOString().slice(0, 19).replace('T', ' ');
+    }
+    else if (proxCita === '3_semana') {
+      dateNow.setDate(dateNow.getDate() + 21);
+      return dateNow.toISOString().slice(0, 19).replace('T', ' ');
+    }
+    else if (proxCita === '1_mes') {
+      dateNow.setMonth(dateNow.getMonth() + 1);
+      return dateNow.toISOString().slice(0, 19).replace('T', ' ');
+    }
+    else if (proxCita === '2_mes') {
+      dateNow.setMonth(dateNow.getMonth() + 2);
+      return dateNow.toISOString().slice(0, 19).replace('T', ' ');
+    }
+    else if (proxCita === '3_mes') {
+      dateNow.setMonth(dateNow.getMonth() + 3);
+      return dateNow.toISOString().slice(0, 19).replace('T', ' ');
+    }
+  }
+  
   //cambiar el estado de un cliente
   cambiarEstado(id, calendario) {
     if (this.opc == undefined) {
@@ -357,14 +391,24 @@ export class CalendarComponent implements OnInit {
     this.estadoForm.get('donde').setValue(this.agendInformation.donde);
     this.agendInformation.estado = estado;
 
-    this._agendaService.editTornoAgenda(calendario, id).subscribe(
+    calendario.prox_cita = this.getDateFormat(calendario.prox_cita);
+   this._agendaService.editTornoAgenda(calendario, id).subscribe(
       result => {
+        /*this.events.forEach((event) => {
+          if (new Date(event.start).getDate() === this._dateSelectedOriginal.getDate() && new Date(event.start).getMonth() === this._dateSelectedOriginal.getMonth()){
+            event.start = this.dateSelected;
+            this.refresh.next();
+          }
+        });*/
+        window.location.reload();
+
       },
       error => {
         console.log(<any>error);
       }
     );
     this.modal.dismissAll();
+    calendario.prox_cita = new Date(calendario.prox_cita);
   }
 
   ngOnInit(): void {
