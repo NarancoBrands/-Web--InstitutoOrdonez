@@ -231,8 +231,9 @@ export class CalendarComponent implements OnInit {
         result.forEach(element => {
           //por si acaso pasamos a date la cita para que no haya ningun error
           let cita = new Date(element.prox_cita);
+          let horarioMod = new Date(this.horarioModificable);
           //si el horario de la agenda y el horario del cliente que fue clickado es el mismo guardamos el dato
-          if (cita.getTime() == this.horarioModificable.getTime()) {
+          if (cita.getDate() === horarioMod.getDate() && cita.getMonth() === horarioMod.getMonth() && cita.getFullYear() === horarioMod.getFullYear()) {
             this.agenda.push(element);
           }
         });
@@ -298,6 +299,7 @@ export class CalendarComponent implements OnInit {
 
   //ABRIR MODAL
   handleEvent(action: string, event: CalendarEvent): void {
+    //Guardamos los dates para cuando cambie el date, tengamos para comparara con el inicial
     this.dateSelected = new Date(event.start);
     this._dateSelectedOriginal = new Date(event.start);
     //guardamos el horario de la cita del cliente
@@ -378,8 +380,9 @@ export class CalendarComponent implements OnInit {
       dateNow.setMonth(dateNow.getMonth() + 3);
       return dateNow.toISOString().slice(0, 19).replace('T', ' ');
     }
+    return this.dateSelected;
   }
-  
+
   //cambiar el estado de un cliente
   cambiarEstado(id, calendario) {
     if (this.opc == undefined) {
@@ -394,13 +397,15 @@ export class CalendarComponent implements OnInit {
     calendario.prox_cita = this.getDateFormat(calendario.prox_cita);
    this._agendaService.editTornoAgenda(calendario, id).subscribe(
       result => {
-        /*this.events.forEach((event) => {
+        this.events.forEach((event) => {
           if (new Date(event.start).getDate() === this._dateSelectedOriginal.getDate() && new Date(event.start).getMonth() === this._dateSelectedOriginal.getMonth()){
             event.start = this.dateSelected;
+            this.agenda = [];
+            this.activeDayIsOpen = false;
             this.refresh.next();
           }
-        });*/
-        window.location.reload();
+        });
+        //window.location.reload();
 
       },
       error => {
