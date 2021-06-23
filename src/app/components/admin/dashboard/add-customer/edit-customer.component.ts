@@ -16,7 +16,7 @@ var current_timestamp = moment().format("YYYY/MM/DD hh:mm:ss");
 })
 export class EditCustomerComponent {
   public cliente: Cliente;
-  public imagen: String;
+  public imagen: String='';
 
   get nombreNoValido() {
     return this.propertyForm.get("nombre").invalid && this.propertyForm.get("nombre").touched;
@@ -43,9 +43,8 @@ export class EditCustomerComponent {
     this.imagen = fileInput.target.files;
   }
 
-
   onSubmit() {
-    if(this.imagen.length > 0){
+    if(this.imagen != ''){
       this._ClienteService.makeFileRequest(this.imagen).subscribe(
         result => {
           this.imagen=result;

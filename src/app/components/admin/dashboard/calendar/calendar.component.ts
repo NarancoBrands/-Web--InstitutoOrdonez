@@ -147,7 +147,7 @@ export class CalendarComponent implements OnInit {
         this.agendas.forEach(element => {
           //guardamos en una variable horario solamente la fecha de la cita
           this.horario = element.prox_cita;
-          
+
           //llamamos al metodo para sacar un cliente por el id y pasamos el id del cliente la agenda y el horario
           this.getClientesPorId(this.agendas, this.horario, element.idCliente);
         });
@@ -157,7 +157,7 @@ export class CalendarComponent implements OnInit {
       }
     );
   }
-  
+
   /*este metodo es usado cuando queremos saber los datos de un cliente a través del modal el cual se llama clickando a un cliente
   en el calendario*/
   getClientePorIdModal(id) {
@@ -350,9 +350,10 @@ export class CalendarComponent implements OnInit {
   Opciones(opc1) {
     this.opc = opc1;
   }
+
   getDateFormat(proxCita) {
     let dateNow: Date = this.dateSelected;
-    if (proxCita === '3_dias'){
+    if (proxCita === '3_dias') {
       dateNow.setDate(dateNow.getDate() + 3);
       return dateNow.toISOString().slice(0, 19).replace('T', ' ');
     }
@@ -388,17 +389,17 @@ export class CalendarComponent implements OnInit {
     if (this.opc == undefined) {
       this.opc = "Fuera de torno";
     }
-   
+
     let estado = this.opc;
     this.estadoForm.get('estado').setValue(estado);
     this.estadoForm.get('donde').setValue(this.agendInformation.donde);
     this.agendInformation.estado = estado;
 
     calendario.prox_cita = this.getDateFormat(calendario.prox_cita);
-   this._agendaService.editTornoAgenda(calendario, id).subscribe(
+    this._agendaService.editTornoAgenda(calendario, id).subscribe(
       result => {
         this.events.forEach((event) => {
-          if (new Date(event.start).getDate() === this._dateSelectedOriginal.getDate() && new Date(event.start).getMonth() === this._dateSelectedOriginal.getMonth()){
+          if (new Date(event.start).getDate() === this._dateSelectedOriginal.getDate() && new Date(event.start).getMonth() === this._dateSelectedOriginal.getMonth()) {
             event.start = this.dateSelected;
             this.agenda = [];
             this.activeDayIsOpen = false;
@@ -417,11 +418,11 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.getAgendas();
+    this.getAgendas();
 
-      this.selected.valueChanges.subscribe(changes => {
-        this.Opciones(changes);
-      });
+    this.selected.valueChanges.subscribe(changes => {
+      this.Opciones(changes);
+    });
   }
 }
 
